@@ -1,0 +1,16 @@
+schema_version = "1.0.0"
+id = "nebula_uv_manager"
+version = "0.1.0"
+name = "Nebula UV Manager"
+tagline = "UV-focused add-on for packing, checking, and unwrapping UVs"
+maintainer = "Colin Nebula <support@nebula3ddev.com>"
+type = "add-on"
+
+blender_version_min = "4.2.0"
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
+tags = ["Modeling", "Pipeline"]
+
+[permissions]
+files = "Store add-on logs in extension user data"

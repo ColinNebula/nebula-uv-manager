@@ -1,0 +1,47 @@
+__pycache__/
+*.py[cod]
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editor settings
+.vscode/
+.idea/
+
+# Build artifacts
+*.zip
+build/
+dist/
+
+# Blender and DCC temporary/large files
+*.blend
+*.blend1
+*.blend2
+*.blend@
+*.blend~
+*.fbx
+*.obj
+*.stl
+*.ply
+*.abc
+*.usd
+*.usda
+*.usdc
+*.gltf
+*.glb
+*.exr
+*.tif
+*.tiff
+*.psd
+
+# Caches and local scratch
+.cache/
+tmp/
+temp/
+
+# OS files
+Thumbs.db
+.DS_Store

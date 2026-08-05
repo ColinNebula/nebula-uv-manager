@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate tag matches manifest version
+        run: |
+          python - << 'PY'
+          from pathlib import Path
+          import os
+          import re
+          import tomllib
+
+          ref = os.environ.get('GITHUB_REF', '')
+          m = re.match(r'refs/tags/v(.+)$', ref)
+          if not m:
+              raise SystemExit('Tag format must be v<version>')
+          tag_version = m.group(1)
+
+          data = tomllib.loads(Path('blender_manifest.toml').read_text(encoding='utf-8'))
+          manifest_version = data.get('version')
+          if manifest_version != tag_version:
+              raise SystemExit(
+                  f'Tag version ({tag_version}) does not match blender_manifest.toml version ({manifest_version})'
+              )
+
+          print('Tag version matches manifest version.')
+          PY
+
+      - name: Create source archive
+        run: |
+          archive="nebula-uv-manager-${GITHUB_REF_NAME}.zip"
+          git archive --format=zip --output "$archive" HEAD
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: nebula-uv-manager-${{ github.ref_name }}.zip
+          generate_release_notes: true
